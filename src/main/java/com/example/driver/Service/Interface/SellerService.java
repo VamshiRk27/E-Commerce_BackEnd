@@ -17,4 +17,5 @@ public interface SellerService {
     SellerResponse getSellerBySellerId(Integer sellerId) throws SellerException;
     List<SellerResponse> getAllSellers();
     SellerOperationResponse updateSellerInfo(String sellerEmail,SellerRequest sellerRequest) throws SellerException;
+    SellerOperationResponse deleteSellerByEmail(String sellerEmail) throws SellerException;
 }

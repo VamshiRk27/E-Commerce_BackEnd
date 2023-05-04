@@ -89,4 +89,18 @@ public class SellerController {
             return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
+
+    // 6.Delete a Seller by Email
+    @DeleteMapping("/delete-seller-by-email")
+    public ResponseEntity deleteSellerByEmail(@RequestParam("emailId") String sellerEmail){
+        //Delete the Seller using the unique identifier key Seller EmailId
+        //If the Seller with given email doesn't exist throw an exception "Seller with 'sellerEmail' doesn't exist"
+        try{
+            SellerOperationResponse response=sellerService.deleteSellerByEmail(sellerEmail);
+            return new ResponseEntity<>(response,HttpStatus.OK);
+        }
+        catch(Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+        }
+    }
 }

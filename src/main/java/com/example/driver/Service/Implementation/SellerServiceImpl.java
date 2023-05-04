@@ -98,4 +98,19 @@ public class SellerServiceImpl implements SellerService {
         response.setMessage("Your Seller profile data has been Updated."); //Setting the operation message
         return response; //Returning the Response
     }
+
+    // 6.Delete Seller by Email
+    @Override
+    public SellerOperationResponse deleteSellerByEmail(String sellerEmail) throws SellerException {
+        //Retrieve Seller by Email Address
+        Seller seller=sellerRepository.findByEmailId(sellerEmail);
+        if(seller==null){
+            //If seller doesn't exist then throw an Exception
+            throw new SellerException("Seller with "+sellerEmail+" doesn't exist");
+        }
+        sellerRepository.delete(seller); //Delete seller from the Database
+        SellerOperationResponse response=new SellerOperationResponse(); //Initialising a new Seller Operation Response
+        response.setMessage("Seller with email Id "+sellerEmail+" has been deleted."); //Setting the Operation message
+        return response; //Returning the Response
+    }
 }
