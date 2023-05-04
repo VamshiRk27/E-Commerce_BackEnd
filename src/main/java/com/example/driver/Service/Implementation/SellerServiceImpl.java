@@ -48,4 +48,19 @@ public class SellerServiceImpl implements SellerService {
         response=SellerTransformer.sellerResponseFromSeller(seller); //Preparing a Response from Seller Object
         return response; //Returning the Response
     }
+
+    // 3.Get Seller by SellerId
+    @Override
+    public SellerResponse getSellerBySellerId(Integer sellerId) throws SellerException {
+        //Check if there exists any Seller with the given EmailID
+        Seller seller=sellerRepository.findById(sellerId).get();
+        if(seller==null){
+            //If the result obtained is null then there exists no Seller with given EmailID
+            throw new SellerException("No Seller exists with given ID"); //Exception message is different in PostMan
+        }
+
+        SellerResponse response; //Declaring a SellerResponse
+        response=SellerTransformer.sellerResponseFromSeller(seller); //Preparing a Response from Seller Object
+        return response; //Returning the Response
+    }
 }

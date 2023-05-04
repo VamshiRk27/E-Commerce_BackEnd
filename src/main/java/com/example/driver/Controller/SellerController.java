@@ -44,4 +44,16 @@ public class SellerController {
             return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
+
+    // 3.Get Seller By SellerID
+    @GetMapping("/get-seller-by-seller-id")
+    public ResponseEntity getSellerBySellerId(@RequestParam("sellerId") int sellerId){
+        try{
+            SellerResponse response=sellerService.getSellerBySellerId(sellerId);
+            return new ResponseEntity<>(response,HttpStatus.OK);
+        }
+        catch(Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+        }
+    }
 }
