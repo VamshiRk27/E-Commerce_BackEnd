@@ -1,7 +1,9 @@
 package com.example.driver.Controller;
 
 import com.example.driver.DTO.Request.Seller.AddSellerRequest;
+import com.example.driver.DTO.Request.Seller.SellerRequest;
 import com.example.driver.DTO.Response.Seller.AddSellerResponse;
+import com.example.driver.DTO.Response.Seller.SellerOperationResponse;
 import com.example.driver.DTO.Response.Seller.SellerResponse;
 import com.example.driver.Service.Interface.SellerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +72,20 @@ public class SellerController {
             return new ResponseEntity<>(responseList,HttpStatus.OK);
         }
         catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    // 5.Update Seller info Based on Email
+    @PutMapping("/update-seller-info")
+    public ResponseEntity updateSellerInfo(@RequestParam("emailId") String sellerEmail, @RequestBody SellerRequest sellerRequest){
+        //Update the Seller data using the given sellerId as Identifier
+        //If the Seller doesn't exist with given emailId then throw an exception "Seller with given email 'sellerEmail' doesn't exist"
+        try{
+            SellerOperationResponse response=sellerService.updateSellerInfo(sellerEmail,sellerRequest);
+            return new ResponseEntity<>(response,HttpStatus.ACCEPTED);
+        }
+        catch(Exception e){
             return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
