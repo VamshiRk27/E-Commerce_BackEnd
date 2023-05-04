@@ -11,6 +11,9 @@ import com.example.driver.Tranformer.SellerTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class SellerServiceImpl implements SellerService {
     @Autowired
@@ -62,5 +65,19 @@ public class SellerServiceImpl implements SellerService {
         SellerResponse response; //Declaring a SellerResponse
         response=SellerTransformer.sellerResponseFromSeller(seller); //Preparing a Response from Seller Object
         return response; //Returning the Response
+    }
+
+    // 4.Get All Sellers
+    @Override
+    public List<SellerResponse> getAllSellers() {
+        List<Seller> sellersList=sellerRepository.findAll(); //Retrieve all Seller's from the Database
+        List<SellerResponse> responseList=new ArrayList<>(); // Initialising a new ArrayList for Seller Response
+
+        //Loop for preparing SellerResponse for each existing Seller
+        for(Seller seller:sellersList){
+            SellerResponse response=SellerTransformer.sellerResponseFromSeller(seller); //Preparing the Response for each Seller
+            responseList.add(response); //Adding the Response to the ResponseList
+        }
+        return responseList; //Returning the ResponseList
     }
 }

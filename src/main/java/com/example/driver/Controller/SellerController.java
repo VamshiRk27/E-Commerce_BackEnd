@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/seller")
 public class SellerController {
@@ -48,11 +50,26 @@ public class SellerController {
     // 3.Get Seller By SellerID
     @GetMapping("/get-seller-by-seller-id")
     public ResponseEntity getSellerBySellerId(@RequestParam("sellerId") int sellerId){
+        // Get the Seller details from the Database using Seller ID
+        // If the Seller with given SellerID doesn't exist return an Exception "No Seller exists with given ID"
         try{
             SellerResponse response=sellerService.getSellerBySellerId(sellerId);
             return new ResponseEntity<>(response,HttpStatus.OK);
         }
         catch(Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    // 4.Get All Sellers
+    @GetMapping("/get-all-sellers")
+    public ResponseEntity getAllSellers(){
+        // Get all the Seller Details in the form of a list using Response Entity
+        try{
+            List<SellerResponse> responseList=sellerService.getAllSellers();
+            return new ResponseEntity<>(responseList,HttpStatus.OK);
+        }
+        catch (Exception e){
             return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
