@@ -2,6 +2,7 @@ package com.example.driver.Tranformer;
 
 import com.example.driver.DTO.Request.Seller.AddSellerRequest;
 import com.example.driver.DTO.Response.Seller.AddSellerResponse;
+import com.example.driver.DTO.Response.Seller.SellerResponse;
 import com.example.driver.Entity.Seller;
 import lombok.experimental.UtilityClass;
 
@@ -24,5 +25,13 @@ public class SellerTransformer {
                 .name(sellerName)
                 .emailId(sellerEmail)
                 .message(outMessage).build();
+    }
+
+    public static SellerResponse sellerResponseFromSeller(Seller seller){
+        return SellerResponse.builder()
+                .name(seller.getName())
+                .emailId(seller.getEmailId())
+                .age(seller.getAge())
+                .build();
     }
 }

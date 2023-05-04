@@ -2,14 +2,12 @@ package com.example.driver.Controller;
 
 import com.example.driver.DTO.Request.Seller.AddSellerRequest;
 import com.example.driver.DTO.Response.Seller.AddSellerResponse;
+import com.example.driver.DTO.Response.Seller.SellerResponse;
 import com.example.driver.Service.Interface.SellerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/seller")
@@ -27,6 +25,20 @@ public class SellerController {
         try{
             AddSellerResponse response=sellerService.sellerRegister(addSellerRequest);
             return new ResponseEntity<>(response, HttpStatus.CREATED);
+        }
+        catch(Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    // 2.Get Seller by EmailId
+    @GetMapping("/get-seller-by-emailId/{emailId}")
+    public ResponseEntity getSellerByEmailId(@PathVariable("emailId") String sellerEmail){
+        // Get the Seller details from the Database using Unique identifier value EmailId
+        // If the Seller with emailID doesn't exist return an Exception "No Seller exists with given EmailID"
+        try {
+            SellerResponse response=sellerService.getSellerByEmailId(sellerEmail);
+            return new ResponseEntity<>(response,HttpStatus.OK);
         }
         catch(Exception e){
             return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);

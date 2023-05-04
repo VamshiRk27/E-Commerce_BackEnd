@@ -2,6 +2,7 @@ package com.example.driver.Service.Implementation;
 
 import com.example.driver.DTO.Request.Seller.AddSellerRequest;
 import com.example.driver.DTO.Response.Seller.AddSellerResponse;
+import com.example.driver.DTO.Response.Seller.SellerResponse;
 import com.example.driver.Entity.Seller;
 import com.example.driver.Exception.SellerException.SellerException;
 import com.example.driver.Repository.SellerRepository;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Service;
 public class SellerServiceImpl implements SellerService {
     @Autowired
     SellerRepository sellerRepository;
+
+    // 1.Register Seller
     @Override
     public AddSellerResponse sellerRegister(AddSellerRequest addSellerRequest) throws SellerException {
         //Check if there exists any Seller with the given EmailID
@@ -29,5 +32,20 @@ public class SellerServiceImpl implements SellerService {
         response=SellerTransformer.addSellerResponseFromSeller(savedSeller); //Preparing a Response from Seller Object
         // returning the Response
         return response;
+    }
+
+    // 2.Get Seller by EmailId
+    @Override
+    public SellerResponse getSellerByEmailId(String sellerEmail) throws SellerException {
+        //Check if there exists any Seller with the given EmailID
+        Seller seller=sellerRepository.findByEmailId(sellerEmail);
+        if(seller==null){
+            //If the result obtained is null then there exists no Seller with given EmailID
+            throw new SellerException("No Seller exists with given EmailID");
+        }
+
+        SellerResponse response; //Declaring a SellerResponse
+        response=SellerTransformer.sellerResponseFromSeller(seller); //Preparing a Response from Seller Object
+        return response; //Returning the Response
     }
 }
