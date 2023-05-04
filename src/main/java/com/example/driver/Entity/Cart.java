@@ -20,7 +20,7 @@ public class Cart {
 
     @Id //Defines the attribute as Primary Key of the Product Object
     @GeneratedValue(strategy= GenerationType.IDENTITY) //Provides specification for generation strategy of the Primary Key value
-    int id; //An Integer to store the Cart ID
+    Integer id; //An Integer to store the Cart ID
 
     Integer cartTotal; //An Integer to store the total amount for all Cart items
     Integer numberOfItems; //An Integer to store the number of Cart items

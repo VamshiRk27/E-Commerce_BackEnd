@@ -17,10 +17,10 @@ public class Item {
 
     @Id //Defines the attribute as Primary Key of the Item Object
     @GeneratedValue(strategy= GenerationType.IDENTITY) //Provides specification for generation strategy of the Primary Key value
-    int id; //An Integer to store the Item ID
+    Integer id; //An Integer to store the Item ID
 
     String name; //A String to store the Item Name
-    int requiredQuantity; //An Integer to store the Required Item Quantity
+    Integer requiredQuantity; //An Integer to store the Required Item Quantity
     //cost/price can be obtained from product class
 
     @ManyToOne //Used to define Child to Parent relationship

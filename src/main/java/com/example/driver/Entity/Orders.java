@@ -20,11 +20,11 @@ import java.util.List;
 public class Orders {
     @Id //Defines the attribute as Primary Key of the Product Object
     @GeneratedValue(strategy= GenerationType.IDENTITY) //Provides specification for generation strategy of the Primary Key value
-    int id; //An Integer to store the Order ID
+    Integer orderId; //An Integer to store the Order ID
 
 
     String orderNo; //A String to store the Order Number
-    int totalOrderValue; //An Integer to store the Total Order Value
+    Integer totalOrderValue; //An Integer to store the Total Order Value
     Date orderedDate; //A Date to store the Order Date
     String cardUsed; //A String to store the Card used for Order
 

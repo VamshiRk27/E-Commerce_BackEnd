@@ -19,11 +19,11 @@ public class Product {
 
     @Id //Defines the attribute as Primary Key of the Product Object
     @GeneratedValue(strategy= GenerationType.IDENTITY) //Provides specification for generation strategy of the Primary Key value
-    int id; //An integer to store Product ID
+    Integer id; //An integer to store Product ID
 
     String name; //A String to store Product Name
-    int price; // An Integer to store Product Price
-    int quantity; //An Integer to store Product Quantity
+    Integer price; // An Integer to store Product Price
+    Integer quantity; //An Integer to store Product Quantity
 
     @Enumerated(EnumType.STRING) //Converts the Enum type to String for Database
     ProductCategory productCategory; //An Enum to store Product Category

@@ -20,7 +20,7 @@ public class Seller {
 
     @Id //Defines the attribute as Primary Key of the Seller Object
     @GeneratedValue(strategy=GenerationType.IDENTITY) //Provides specification for generation strategy of the Primary Key value
-    int id; //An Integer to store Seller ID
+    Integer sellerId; //An Integer to store Seller ID
 
     String name; //A String to store the Seller Name
 

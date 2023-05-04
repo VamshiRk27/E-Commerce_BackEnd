@@ -20,7 +20,7 @@ public class Card {
 
     @Id //Defines the attribute as Primary Key of the Product Object
     @GeneratedValue(strategy= GenerationType.IDENTITY) //Provides specification for generation strategy of the Primary Key value
-    int id; //An integer to store Card ID
+    Integer id; //An integer to store Card ID
 
     @Column(unique=true,nullable=false) //Enables to customize the Column
     String cardNo; //A String to store Card Number

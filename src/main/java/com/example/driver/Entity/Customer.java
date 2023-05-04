@@ -20,7 +20,7 @@ public class Customer {
 
     @Id //Defines the attribute as Primary Key of the Customer Object
     @GeneratedValue(strategy= GenerationType.IDENTITY) //Provides specification for generation strategy of the Primary Key value
-    int id; //An integer to store Customer ID
+    Integer customerId; //An integer to store Customer ID
 
     String name; //A String to store Customer name
 
