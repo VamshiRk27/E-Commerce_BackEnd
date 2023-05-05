@@ -103,4 +103,18 @@ public class SellerController {
             return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
+
+    // 7.Delete Seller by Id
+    @DeleteMapping("/delete-seller-by-id/{sellerId}")
+    public ResponseEntity deleteSellerById(@PathVariable("sellerId") Integer sellerId){
+        //Delete the Seller from the Database using SellerId
+        //If the seller with SellerId doesn't exist then throw an exception
+        try{
+            SellerOperationResponse response=sellerService.deleteSellerById(sellerId);
+            return new ResponseEntity<>(response,HttpStatus.OK);
+        }
+        catch(Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+        }
+    }
 }

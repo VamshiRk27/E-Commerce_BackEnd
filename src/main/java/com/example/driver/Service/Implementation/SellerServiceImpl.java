@@ -113,4 +113,19 @@ public class SellerServiceImpl implements SellerService {
         response.setMessage("Seller with email Id "+sellerEmail+" has been deleted."); //Setting the Operation message
         return response; //Returning the Response
     }
+
+    // 7.Delete Seller by Id
+    @Override
+    public SellerOperationResponse deleteSellerById(Integer sellerId) throws SellerException {
+        //Retrieve the Seller using SellerId
+        Seller seller=sellerRepository.findById(sellerId).get();
+        if(seller==null){
+            //If Seller is null then throw an Exception
+            throw new SellerException("Seller with "+sellerId+" doesn't exist");
+        }
+        sellerRepository.delete(seller); //Delete the Seller from the Database
+        SellerOperationResponse response=new SellerOperationResponse(); //Initialising a new Operation Response
+        response.setMessage("Seller with Id "+sellerId+" has been deleted."); //Setting Response Message
+        return response; //Returning the Response
+    }
 }
