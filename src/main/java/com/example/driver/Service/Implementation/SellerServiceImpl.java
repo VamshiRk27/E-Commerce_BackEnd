@@ -125,7 +125,24 @@ public class SellerServiceImpl implements SellerService {
         }
         sellerRepository.delete(seller); //Delete the Seller from the Database
         SellerOperationResponse response=new SellerOperationResponse(); //Initialising a new Operation Response
-        response.setMessage("Seller with Id "+sellerId+" has been deleted."); //Setting Response Message
+        response.setMessage("Seller with Id "+"'"+sellerId+"'"+" has been deleted."); //Setting Response Message
         return response; //Returning the Response
+    }
+
+    // 8.Get all Sellers by Age
+    @Override
+    public List<SellerResponse> getAllSellersByAge(Integer age) {
+        //Retrieve all the Sellers of a given age from the Database
+        List<Seller> sellerList=sellerRepository.findByAge(age);
+        //Initialize a new ArrayList for SellerResponse
+        List<SellerResponse> responseList=new ArrayList<>();
+
+        for(Seller seller:sellerList){
+            //Preparing a Seller Response for each Seller from the retrieved Seller List
+            SellerResponse response=SellerTransformer.sellerResponseFromSeller(seller);
+            //Adding the prepared response to the ResponseList
+            responseList.add(response);
+        }
+        return responseList; //Returning the Response List
     }
 }

@@ -117,4 +117,17 @@ public class SellerController {
             return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
+
+    // 8.Get all Sellers of a Particular age
+    @GetMapping("/get-all-sellers-of-age/{age}")
+    public ResponseEntity getAllSellersByAge(@PathVariable("age") Integer age){
+        //Get all the Sellers of a given age in the form of Response Data
+        try{
+            List<SellerResponse> responseList=sellerService.getAllSellersByAge(age);
+            return new ResponseEntity<>(responseList,HttpStatus.OK);
+        }
+        catch(Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+        }
+    }
 }
