@@ -145,4 +145,21 @@ public class SellerServiceImpl implements SellerService {
         }
         return responseList; //Returning the Response List
     }
+
+    // 9.Get all Sellers by age less than the given age
+    @Override
+    public List<SellerResponse> getAllSellersOfAgeLessThan(Integer age) {
+        //Retrieve all the Sellers of age less than given age from the Database
+        List<Seller> sellerList=sellerRepository.findByAgeYounger(age);
+        //Initialize a new ArrayList for SellerResponse
+        List<SellerResponse> responseList=new ArrayList<>();
+
+        for(Seller seller:sellerList){
+            //Preparing a Seller Response for each Seller from the retrieved Seller List
+            SellerResponse response=SellerTransformer.sellerResponseFromSeller(seller);
+            //Adding the prepared response to the ResponseList
+            responseList.add(response);
+        }
+        return responseList; //Returning the Response List
+    }
 }

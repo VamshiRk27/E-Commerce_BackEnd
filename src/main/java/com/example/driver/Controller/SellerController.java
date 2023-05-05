@@ -130,4 +130,17 @@ public class SellerController {
             return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
+
+    // 9.Get all Sellers of age less than the given Age
+    @GetMapping("/get-all-sellers-of-age-less-than/{age}")
+    public ResponseEntity getAllSellersOfAgeLessThan(@PathVariable("age") Integer age){
+        //Get all the Sellers of age less than given age in the form of Response Data
+        try{
+            List<SellerResponse> responseList=sellerService.getAllSellersOfAgeLessThan(age);
+            return new ResponseEntity<>(responseList,HttpStatus.OK);
+        }
+        catch(Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+        }
+    }
 }

@@ -20,4 +20,5 @@ public interface SellerService {
     SellerOperationResponse deleteSellerByEmail(String sellerEmail) throws SellerException;
     SellerOperationResponse deleteSellerById(Integer sellerId) throws SellerException;
     List<SellerResponse> getAllSellersByAge(Integer age);
+    List<SellerResponse> getAllSellersOfAgeLessThan(Integer age);
 }
