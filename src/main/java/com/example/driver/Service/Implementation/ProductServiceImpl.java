@@ -4,11 +4,10 @@ import com.example.driver.DTO.Request.Product.AddProductRequest;
 import com.example.driver.DTO.Response.Product.AddProductResponse;
 import com.example.driver.DTO.Response.Product.ProductOperationResponse;
 import com.example.driver.DTO.Response.Product.ProductResponse;
-import com.example.driver.DTO.Response.Seller.AddSellerResponse;
 import com.example.driver.Entity.Product;
 import com.example.driver.Entity.Seller;
-import com.example.driver.Exception.ProductException.ProductException;
-import com.example.driver.Exception.SellerException.SellerException;
+import com.example.driver.Exception.ProductException;
+import com.example.driver.Exception.SellerException;
 import com.example.driver.Repository.ProductRepository;
 import com.example.driver.Repository.SellerRepository;
 import com.example.driver.Service.Interface.ProductService;
@@ -143,4 +142,7 @@ public class ProductServiceImpl implements ProductService {
         }
         return responseList; //Return the Response list
     }
+
+    // 8.Get all Available Products
+
 }

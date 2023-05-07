@@ -4,8 +4,8 @@ import com.example.driver.DTO.Request.Product.AddProductRequest;
 import com.example.driver.DTO.Response.Product.AddProductResponse;
 import com.example.driver.DTO.Response.Product.ProductOperationResponse;
 import com.example.driver.DTO.Response.Product.ProductResponse;
-import com.example.driver.Exception.ProductException.ProductException;
-import com.example.driver.Exception.SellerException.SellerException;
+import com.example.driver.Exception.ProductException;
+import com.example.driver.Exception.SellerException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

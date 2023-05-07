@@ -6,7 +6,7 @@ import com.example.driver.DTO.Response.Seller.AddSellerResponse;
 import com.example.driver.DTO.Response.Seller.SellerOperationResponse;
 import com.example.driver.DTO.Response.Seller.SellerResponse;
 import com.example.driver.Entity.Seller;
-import com.example.driver.Exception.SellerException.SellerException;
+import com.example.driver.Exception.SellerException;
 import com.example.driver.Helper.SellerHelper;
 import com.example.driver.Repository.SellerRepository;
 import com.example.driver.Service.Interface.SellerService;

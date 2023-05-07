@@ -28,7 +28,7 @@ public class Customer {
     String emailId; //A String to store Customer Email-Id
 
     Integer age; //An Integer to store Customer Age
-    String mobNo; //A String to store Customer Mobile Number
+    String mobileNumber; //A String to store Customer Mobile Number
     String address; //A String to store Customer Address
 
     @OneToMany(mappedBy="customer",cascade=CascadeType.ALL) //Used to define Parent to Child Relationship

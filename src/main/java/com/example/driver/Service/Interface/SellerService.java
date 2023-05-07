@@ -5,7 +5,7 @@ import com.example.driver.DTO.Request.Seller.SellerRequest;
 import com.example.driver.DTO.Response.Seller.AddSellerResponse;
 import com.example.driver.DTO.Response.Seller.SellerOperationResponse;
 import com.example.driver.DTO.Response.Seller.SellerResponse;
-import com.example.driver.Exception.SellerException.SellerException;
+import com.example.driver.Exception.SellerException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.driver.Exception.ProductException;
+package com.example.driver.Exception;
 
 public class ProductException extends Exception {
     public ProductException(String message) {

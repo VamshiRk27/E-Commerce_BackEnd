@@ -103,4 +103,11 @@ public class ProductController {
             return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_GATEWAY);
         }
     }
+
+    // 7.Get all out_of_stock products
+
+    // 8.Get all available products
+    // 9.Get all the products having quantity less than 10
+    // 10.Get the cheapest product in a particular category
+    // 11.Return the costliest product in a particular category
 }
