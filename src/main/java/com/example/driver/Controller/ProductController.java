@@ -44,4 +44,16 @@ public class ProductController {
             return new ResponseEntity(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
+
+    // 3.Get all Products by seller EmailID
+    @GetMapping("/get-all-products-by-seller-email/{email}")
+    public ResponseEntity getProductsBySeller(@PathVariable("email") String sellerEmail){
+        try{
+            List<ProductResponse> responseList=productService.getProductsBySeller(sellerEmail);
+            return new ResponseEntity<>(responseList,HttpStatus.OK);
+        }
+        catch(Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+        }
+    }
 }

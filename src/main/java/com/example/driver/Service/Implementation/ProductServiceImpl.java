@@ -59,4 +59,25 @@ public class ProductServiceImpl implements ProductService {
         }
         return responseList; //Return the ResponseList
     }
+
+    // 3.Get all Products by a Seller
+    @Override
+    public List<ProductResponse> getProductsBySeller(String sellerEmail) throws SellerException {
+        Seller seller=sellerRepository.findByEmailId(sellerEmail); //Search for the seller using emailId as reference
+        if(seller==null){
+            // If the Seller with given email doesn't exist then throw an Exception
+            throw new SellerException("Seller with given Email doesn't exist in the Database");
+        }
+
+        List<Product> sellerProductsList=seller.getProducts(); //Get all products from the Seller
+        List<ProductResponse> responseList=new ArrayList<>(); //Initialising a new Response List
+
+        //Preparing a response for each Product of Seller from Products List
+        for(Product product:sellerProductsList){
+            //Preparing product response for each Product
+            ProductResponse response=ProductTransformer.productResponseFromProduct(product);
+            responseList.add(response); //Add response to Response List
+        }
+        return responseList; //returning the Response List
+    }
 }

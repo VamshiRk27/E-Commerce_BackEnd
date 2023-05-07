@@ -12,4 +12,5 @@ import java.util.List;
 public interface ProductService {
     AddProductResponse addProduct(AddProductRequest addProductRequest) throws SellerException;
     List<ProductResponse> getAllProductsByCategory(String category);
+    List<ProductResponse> getProductsBySeller(String sellerEmail) throws SellerException;
 }
