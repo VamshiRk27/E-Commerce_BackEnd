@@ -89,4 +89,18 @@ public class ProductController {
             return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_GATEWAY);
         }
     }
+
+    // 6.Get Top 5 Costliest Products
+    @GetMapping("/get-top-five-costliest-products")
+    public ResponseEntity getTopFiveCostliestProducts(){
+        //Get the top 5 Costliest Products Available
+        //Return the products as List of Product Response
+        try{
+            List<ProductResponse> responseList=productService.getTopFiveCostliestProducts();
+            return new ResponseEntity<>(responseList,HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_GATEWAY);
+        }
+    }
 }

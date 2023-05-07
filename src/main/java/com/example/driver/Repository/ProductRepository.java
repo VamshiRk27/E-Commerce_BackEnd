@@ -14,4 +14,7 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
 
     @Query(value="select * from product p order by p.price asc",nativeQuery=true)
     List<Product> CheapestProducts();
+
+    @Query(value="select * from product p order by p.price desc",nativeQuery=true)
+    List<Product> CostliestProducts();
 }
