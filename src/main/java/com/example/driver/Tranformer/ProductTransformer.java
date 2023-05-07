@@ -2,6 +2,7 @@ package com.example.driver.Tranformer;
 
 import com.example.driver.DTO.Request.Product.AddProductRequest;
 import com.example.driver.DTO.Response.Product.AddProductResponse;
+import com.example.driver.DTO.Response.Product.ProductResponse;
 import com.example.driver.DTO.Response.Seller.AddSellerResponse;
 import com.example.driver.Entity.Product;
 import lombok.experimental.UtilityClass;
@@ -23,6 +24,15 @@ public class ProductTransformer {
                 .name(product.getName())
                 .sellerName(sellerName)
                 .message(outMessage)
+                .build();
+    }
+    public ProductResponse productResponseFromProduct(Product product){
+        return ProductResponse.builder()
+                .name(product.getName())
+                .price(product.getPrice())
+                .quantity(product.getQuantity())
+                .productCategory(product.getProductCategory())
+                .productStatus(product.getProductStatus())
                 .build();
     }
 }

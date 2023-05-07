@@ -2,14 +2,14 @@ package com.example.driver.Controller;
 
 import com.example.driver.DTO.Request.Product.AddProductRequest;
 import com.example.driver.DTO.Response.Product.AddProductResponse;
+import com.example.driver.DTO.Response.Product.ProductResponse;
 import com.example.driver.Service.Interface.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/product")
@@ -29,6 +29,19 @@ public class ProductController {
         }
         catch(Exception e){
             return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    // 2.Get all Products of a Category
+    @GetMapping("/get-all-products-of-category")
+    public ResponseEntity getAllProductsByCategory(@RequestParam("category") String category){
+        //Get all the products of a given category and return the List of products in the form of Product Response
+        try{
+            List<ProductResponse> responseList=productService.getAllProductsByCategory(category);
+            return new ResponseEntity<>(responseList,HttpStatus.OK);
+        }
+        catch(Exception e){
+            return new ResponseEntity(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
 }
