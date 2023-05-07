@@ -2,6 +2,7 @@ package com.example.driver.Controller;
 
 import com.example.driver.DTO.Request.Product.AddProductRequest;
 import com.example.driver.DTO.Response.Product.AddProductResponse;
+import com.example.driver.DTO.Response.Product.ProductOperationResponse;
 import com.example.driver.DTO.Response.Product.ProductResponse;
 import com.example.driver.Service.Interface.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,11 +49,29 @@ public class ProductController {
     // 3.Get all Products by seller EmailID
     @GetMapping("/get-all-products-by-seller-email/{email}")
     public ResponseEntity getProductsBySeller(@PathVariable("email") String sellerEmail){
+        //Get all the Products sold by a Seller using Seller EmailId
+        //If the seller doesn't exist then throw an Exception
         try{
             List<ProductResponse> responseList=productService.getProductsBySeller(sellerEmail);
             return new ResponseEntity<>(responseList,HttpStatus.OK);
         }
         catch(Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    // 4.Delete a Product by sellerEmail and ProductId
+    @DeleteMapping("/delete-a-product-of-seller")
+    public ResponseEntity deleteASellerProduct(@RequestParam("emailId") String sellerEmail,@RequestParam("productId") Integer productId){
+        //Delete the product with given product id sold by given Seller
+        //If the Seller doesn't exist then throw an Exception
+        //If the Product doesn't exist then throw an Exception
+        //Delete the product and send a message as Response
+        try{
+            ProductOperationResponse response=productService.deleteASellerProduct(sellerEmail,productId);
+            return new ResponseEntity<>(response,HttpStatus.OK);
+        }
+        catch (Exception e){
             return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }

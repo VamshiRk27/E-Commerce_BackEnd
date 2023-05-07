@@ -2,10 +2,12 @@ package com.example.driver.Service.Implementation;
 
 import com.example.driver.DTO.Request.Product.AddProductRequest;
 import com.example.driver.DTO.Response.Product.AddProductResponse;
+import com.example.driver.DTO.Response.Product.ProductOperationResponse;
 import com.example.driver.DTO.Response.Product.ProductResponse;
 import com.example.driver.DTO.Response.Seller.AddSellerResponse;
 import com.example.driver.Entity.Product;
 import com.example.driver.Entity.Seller;
+import com.example.driver.Exception.ProductException.ProductException;
 import com.example.driver.Exception.SellerException.SellerException;
 import com.example.driver.Repository.ProductRepository;
 import com.example.driver.Repository.SellerRepository;
@@ -79,5 +81,36 @@ public class ProductServiceImpl implements ProductService {
             responseList.add(response); //Add response to Response List
         }
         return responseList; //returning the Response List
+    }
+
+    // 4.Delete a Product by sellerEmail and ProductId
+    @Override
+    public ProductOperationResponse deleteASellerProduct(String sellerEmail, Integer productId) throws SellerException, ProductException {
+        //Search for the seller using emailId as reference
+        Seller seller=sellerRepository.findByEmailId(sellerEmail);
+        if(seller==null){
+            // If the Seller with given email doesn't exist then throw an Exception
+            throw new SellerException("Seller with given Email doesn't exist in the Database");
+        }
+        //Search for the product using the given ProductId from the Database
+        Product product=productRepository.findById(productId).get();
+        if(product==null){
+            //If the Product is null then throw an Exception
+            throw new ProductException("Product with given id "+productId+" doesn't exist");
+        }
+        ProductOperationResponse response = new ProductOperationResponse(); //Initialising an Operation Response
+
+        if(product.getSeller()==seller){ //If the seller retrieved and product seller are same
+            List<Product> sellerProductsList=seller.getProducts(); //Get the products sold by Seller
+            sellerProductsList.remove(product); //Remove the product from the list
+            productRepository.delete(product); //Delete the product from Database
+            sellerRepository.save(seller); //Update the seller by saving in the Database
+            response.setMessage("The Product has been removed Successfully"); //Set the Response Message
+        }
+        else{ //If the seller retrieved and product seller are different
+            //Set the Response message
+            response.setMessage("The Product with given id is not sold by the given Seller");
+        }
+        return response; //Return the response
     }
 }
