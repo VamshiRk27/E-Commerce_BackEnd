@@ -14,7 +14,6 @@ import lombok.experimental.FieldDefaults;
 public class ProductResponse {
     String name;
     Integer price;
-    Integer quantity;
     ProductCategory productCategory;
     ProductStatus productStatus;
 }

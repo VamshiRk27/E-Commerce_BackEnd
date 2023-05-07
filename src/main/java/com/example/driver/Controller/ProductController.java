@@ -75,4 +75,18 @@ public class ProductController {
             return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
+
+    // 5.Get Top 5 Cheapest products
+    @GetMapping("/get-top-five-cheapest-products")
+    public ResponseEntity getTopFiveCheapestProducts(){
+        //Get the top 5 Cheapest products from the Database
+        //Return the products as List of Product Response
+        try{
+            List<ProductResponse> responseList=productService.getTopFiveCheapestProducts();
+            return new ResponseEntity<>(responseList,HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_GATEWAY);
+        }
+    }
 }

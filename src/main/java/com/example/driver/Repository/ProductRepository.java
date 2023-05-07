@@ -11,4 +11,7 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<Product,Integer> {
     @Query(value="select * from product p where p.product_category=:category",nativeQuery=true)
     List<Product> findAllProductsByCategory(String category);
+
+    @Query(value="select * from product p order by p.price asc",nativeQuery=true)
+    List<Product> CheapestProducts();
 }

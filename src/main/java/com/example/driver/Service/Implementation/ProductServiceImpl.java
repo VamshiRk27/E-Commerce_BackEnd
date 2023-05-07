@@ -113,4 +113,19 @@ public class ProductServiceImpl implements ProductService {
         }
         return response; //Return the response
     }
+
+    // 5.Get Top 5 Cheapest products
+    @Override
+    public List<ProductResponse> getTopFiveCheapestProducts() {
+        //Get all the Products List in the order of Low price to High price
+        List<Product> CheapProducts=productRepository.CheapestProducts();
+        List<ProductResponse> responseList=new ArrayList<>(); //Initialize a new ArrayList
+        //Prepare Product Response for top 5 Cheapest Products
+        for(int i=0;i<5;i++){
+            //Preparing response for each Product
+            ProductResponse response=ProductTransformer.productResponseFromProduct(CheapProducts.get(i));
+            responseList.add(response); //Add response to the Response list
+        }
+        return responseList; //Return the Response list
+    }
 }

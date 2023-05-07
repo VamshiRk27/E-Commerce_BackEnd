@@ -30,7 +30,6 @@ public class ProductTransformer {
         return ProductResponse.builder()
                 .name(product.getName())
                 .price(product.getPrice())
-                .quantity(product.getQuantity())
                 .productCategory(product.getProductCategory())
                 .productStatus(product.getProductStatus())
                 .build();
