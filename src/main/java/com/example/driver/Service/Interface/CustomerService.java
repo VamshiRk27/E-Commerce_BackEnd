@@ -13,4 +13,5 @@ public interface CustomerService {
     AddCustomerResponse registerCustomer(AddCustomerRequest addCustomerRequest) throws CustomerException;
     List<CustomerResponse> getAllCustomers();
     CustomerResponse getCustomerByEmail(String customerEmail) throws CustomerException;
+    List<CustomerResponse> getCustomersOfAgeGreaterThan(Integer age);
 }

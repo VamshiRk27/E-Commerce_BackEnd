@@ -56,12 +56,29 @@ public class CustomerServiceImpl implements CustomerService {
     // 3.Get a Customer by email/mobile number
     @Override
     public CustomerResponse getCustomerByEmail(String customerEmail) throws CustomerException {
+        //Get the Customer from the Database using customer EmailId
         Customer customer=customerRepository.findByEmailId(customerEmail);
         if(customer==null){
+            //If the customer doesn't exist throw an Exception.
             throw new CustomerException("Customer with emailId "+"'"+customerEmail+"'"+" doesn't exist");
         }
-
+        //Prepare a Customer Response for the retrieved customer
         CustomerResponse response=CustomerTransformer.customerResponseFromCustomer(customer);
-        return response;
+        return response; //Returning the CustomerResponse
+    }
+
+    // 4.Get all customers whose age is greater than 'x'
+    @Override
+    public List<CustomerResponse> getCustomersOfAgeGreaterThan(Integer age) {
+        //Get all the Customers from the Database matching the given criteria
+        List<Customer> customersList=customerRepository.customersGreaterThanAge(age);
+        List<CustomerResponse> responseList=new ArrayList<>(); //Initialise a new ArrayList
+        //Prepare a Customer Response for each and every Customer
+        for(Customer customer:customersList){
+            //Prepare Customer Response for each customer object
+            CustomerResponse response=CustomerTransformer.customerResponseFromCustomer(customer);
+            responseList.add(response); //Add the response to the ResponseList
+        }
+        return responseList; //Return the ResponseList
     }
 }

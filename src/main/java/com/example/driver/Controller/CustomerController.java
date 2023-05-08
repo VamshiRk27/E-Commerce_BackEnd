@@ -48,6 +48,8 @@ public class CustomerController {
     // 3.Get a Customer by email/mobile number
     @GetMapping("/get-customer-by-email")
     public ResponseEntity getCustomerByEmail(@RequestParam("emailId") String customerEmail){
+        //Get Customer using Unique Identifier 'EmailId'
+        //If the Customer with given email doesn't exist throw an Exception
         try {
             CustomerResponse response=customerService.getCustomerByEmail(customerEmail);
             return new ResponseEntity<>(response,HttpStatus.OK);
@@ -58,6 +60,18 @@ public class CustomerController {
     }
 
     // 4.Get all customers whose age is greater than 'x'
+    @GetMapping("get-customers-of-age-greater-than/{age}")
+    public ResponseEntity getCustomersOfAgeGreaterThan(@PathVariable("age") Integer age) {
+        //Get all the Customers having age greater than the given Age in the form of Response List
+        try {
+            List<CustomerResponse> responseList=customerService.getCustomersOfAgeGreaterThan(age);
+            return new ResponseEntity<>(responseList,HttpStatus.OK);
+        }
+        catch(Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+        }
+    }
+
     // 5.Get all customers who use VISA card
     // 6.Update info of the customer
     // 7.delete a customer by email/mobile number
