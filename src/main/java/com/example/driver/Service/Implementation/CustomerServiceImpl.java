@@ -52,4 +52,16 @@ public class CustomerServiceImpl implements CustomerService {
         }
         return responseList; //Return the Response List
     }
+
+    // 3.Get a Customer by email/mobile number
+    @Override
+    public CustomerResponse getCustomerByEmail(String customerEmail) throws CustomerException {
+        Customer customer=customerRepository.findByEmailId(customerEmail);
+        if(customer==null){
+            throw new CustomerException("Customer with emailId "+"'"+customerEmail+"'"+" doesn't exist");
+        }
+
+        CustomerResponse response=CustomerTransformer.customerResponseFromCustomer(customer);
+        return response;
+    }
 }

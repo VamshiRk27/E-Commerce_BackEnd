@@ -12,4 +12,5 @@ import java.util.List;
 public interface CustomerService {
     AddCustomerResponse registerCustomer(AddCustomerRequest addCustomerRequest) throws CustomerException;
     List<CustomerResponse> getAllCustomers();
+    CustomerResponse getCustomerByEmail(String customerEmail) throws CustomerException;
 }

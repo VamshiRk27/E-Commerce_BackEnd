@@ -45,8 +45,18 @@ public class CustomerController {
         }
     }
 
-
     // 3.Get a Customer by email/mobile number
+    @GetMapping("/get-customer-by-email")
+    public ResponseEntity getCustomerByEmail(@RequestParam("emailId") String customerEmail){
+        try {
+            CustomerResponse response=customerService.getCustomerByEmail(customerEmail);
+            return new ResponseEntity<>(response,HttpStatus.OK);
+        }
+        catch(Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+        }
+    }
+
     // 4.Get all customers whose age is greater than 'x'
     // 5.Get all customers who use VISA card
     // 6.Update info of the customer
