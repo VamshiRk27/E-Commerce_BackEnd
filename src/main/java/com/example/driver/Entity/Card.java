@@ -23,7 +23,7 @@ public class Card {
     Integer id; //An integer to store Card ID
 
     @Column(unique=true,nullable=false) //Enables to customize the Column
-    String cardNo; //A String to store Card Number
+    String cardNumber; //A String to store Card Number
     Integer cvv; //An Integer to store Card CVV
     Date expiryDate; //A Date to store Card Expiry
 

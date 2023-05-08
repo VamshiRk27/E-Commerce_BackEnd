@@ -19,7 +19,7 @@ public class ProductTransformer {
                 .build();
     }
     public AddProductResponse addProductResponseFromProduct(String sellerName,Product product){
-        String outMessage="Product "+"'"+product.getName()+"'"+" by "+"'"+sellerName+"'"+" has been added";
+        String outMessage="Product "+"'"+product.getName()+"'"+" by seller "+"'"+sellerName+"'"+" has been added";
         return AddProductResponse.builder()
                 .name(product.getName())
                 .sellerName(sellerName)
