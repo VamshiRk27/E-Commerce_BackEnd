@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.List;
+
 @Entity //Specifies this class is an Entity & is mapped to a Database Table
 @AllArgsConstructor //Generates an All Arguments Constructor
 @NoArgsConstructor //Generates a No Arguments Constructor
@@ -35,6 +37,6 @@ public class Product {
     @JoinColumn //Joins the Primary key of the Product with Seller
     Seller seller; //A Seller Object to map the Product with Seller
 
-    @OneToOne(mappedBy="product",cascade=CascadeType.ALL) //Used to define Parent to Child Relationship
-    Item item; //An Item Object to map the Product as Individual Item
+    @OneToMany(mappedBy="product",cascade=CascadeType.ALL) //Used to define Parent to Child Relationship
+    List<Item> itemList; //An Item List to map the Product as Individual Items into the List
 }

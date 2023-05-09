@@ -17,6 +17,7 @@ public class CardController {
     @Autowired
     CardService cardService;
 
+    // 1.Add Card
     @PostMapping("/add-card")
     public ResponseEntity addCard(@RequestBody AddCardRequest addCardRequest){
         try {
@@ -27,4 +28,10 @@ public class CardController {
             return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
+    // 2.Get all Cards and Customer Name with given Card Type
+    // 3.get all Cards whose Expiry Date is greater than given date
+    // 4.get all Cards whose Expiry Date is less than given date
+    // 5.get all MASTERCard whose Expiry Date is less than given date
+    // 6.get all MASTERCard whose Expiry Date is greater than given date
+    // 7.Return the CardType which has maximum number of that CARD
 }

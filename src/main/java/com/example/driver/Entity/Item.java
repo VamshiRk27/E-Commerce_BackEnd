@@ -31,7 +31,7 @@ public class Item {
     @JoinColumn //Joins the Primary key of the Item with Order
     Orders orders; //An Orders object to map the Item with Order
 
-    @OneToOne //Used to define Child to Parent relationship
+    @ManyToOne //Used to define Child to Parent relationship
     @JoinColumn //Joins the Primary key of the Item with Product
     Product product; //A Product object to map the Item with Product
 }
