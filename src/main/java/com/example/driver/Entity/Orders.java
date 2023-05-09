@@ -3,9 +3,10 @@ package com.example.driver.Entity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity //Specifies this class is an Entity & is mapped to a Database Table
@@ -25,6 +26,7 @@ public class Orders {
 
     String orderNo; //A String to store the Order Number
     Integer totalOrderValue; //An Integer to store the Total Order Value
+    @CreationTimestamp
     Date orderedDate; //A Date to store the Order Date
     String cardUsed; //A String to store the Card used for Order
 
@@ -32,6 +34,6 @@ public class Orders {
     @JoinColumn //Joins the Primary key of the Order with Customer
     Customer customer; //A Customer Object to map the Order with Customer
 
-    @OneToMany(mappedBy="orders",cascade=CascadeType.ALL) //Used to define Parent to Child Relationship
-    List<Item> items=new ArrayList<>(); //A List to store the Order Items
+    @OneToOne(mappedBy="orders",cascade=CascadeType.ALL) //Used to define Parent to Child Relationship
+    Item item; //A List to store the Order Items
 }

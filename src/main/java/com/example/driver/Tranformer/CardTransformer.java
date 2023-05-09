@@ -3,6 +3,7 @@ package com.example.driver.Tranformer;
 import com.example.driver.DTO.Request.Card.AddCardRequest;
 import com.example.driver.DTO.Response.Card.AddCardResponse;
 import com.example.driver.Entity.Card;
+import com.example.driver.Helper.CardHelper;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
@@ -12,7 +13,7 @@ public class CardTransformer {
                 .cardNumber(addCardRequest.getCardNumber())
                 .cardType(addCardRequest.getCardType())
                 .cvv(addCardRequest.getCvv())
-                .expiryDate(addCardRequest.getExpiryDate())
+                .expiryDate(CardHelper.addExpiry(addCardRequest.getExpiryYears()))
                 .build();
     }
     public static AddCardResponse addCardResponseFromCard(Card card){

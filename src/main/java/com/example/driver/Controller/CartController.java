@@ -1,17 +1,18 @@
 package com.example.driver.Controller;
 
+import com.example.driver.DTO.Request.Cart.CheckOutCartRequest;
 import com.example.driver.DTO.Request.Item.AddItemRequest;
 import com.example.driver.DTO.Response.Cart.CartResponse;
+import com.example.driver.DTO.Response.Order.OrderResponse;
 import com.example.driver.Entity.Item;
 import com.example.driver.Service.Interface.CartService;
 import com.example.driver.Service.Interface.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/cart")
@@ -33,6 +34,23 @@ public class CartController {
             //Adding the saved item to the Customer Cart
             CartResponse response=cartService.saveCart(addItemRequest.getCustomerEmail(),savedItem);
             return new ResponseEntity<>(response,HttpStatus.OK);
+        }
+        catch(Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/checkout-cart")
+    public ResponseEntity checkOutCart(@RequestBody CheckOutCartRequest checkOutCartRequest){
+        //Order all Items present in the cart of Customer
+        //If the Customer doesn't exist throw an Exception
+        //If the Card details mismatch or doesn't exist then throw a Card Exception
+        //If the Card is expired then throw an Exception
+        //Order all the items and return the Order Response List
+        //Reset the cart if all the items in the cart are Ordered else remove items from cart that are successfully ordered
+        try{
+            List<OrderResponse> responseList=cartService.checkOutCart(checkOutCartRequest);
+            return new ResponseEntity<>(responseList,HttpStatus.OK);
         }
         catch(Exception e){
             return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);

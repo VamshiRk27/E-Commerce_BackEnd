@@ -4,7 +4,7 @@ import com.example.driver.Enum.CardType;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.util.Date;
+import java.sql.Date;
 
 @Data
 @NoArgsConstructor
@@ -17,5 +17,5 @@ public class AddCardRequest {
     String cardNumber;
     Integer cvv;
     CardType cardType;
-    Date expiryDate;
+    Integer expiryYears;
 }

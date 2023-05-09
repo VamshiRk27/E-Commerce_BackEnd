@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.util.Date;
+import java.sql.Date;
 
 @Entity //Specifies this class is an Entity & is mapped to a Database Table
 @AllArgsConstructor //Generates an All Arguments Constructor
