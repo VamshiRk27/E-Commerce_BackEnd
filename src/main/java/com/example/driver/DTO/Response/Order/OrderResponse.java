@@ -16,7 +16,7 @@ import java.util.List;
 public class OrderResponse {
     String customerName;
     String OrderNo;
-    ItemResponse item;
     Date orderedDate;
     String cardUsed;
+    ItemResponse item;
 }

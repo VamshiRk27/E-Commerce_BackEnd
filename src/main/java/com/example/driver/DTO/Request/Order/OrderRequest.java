@@ -1,6 +1,5 @@
 package com.example.driver.DTO.Request.Order;
 
-import com.example.driver.Entity.Card;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
