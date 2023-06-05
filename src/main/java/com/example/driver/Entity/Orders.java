@@ -1,5 +1,6 @@
 package com.example.driver.Entity;
 
+import com.example.driver.Enum.OrderStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -29,6 +30,8 @@ public class Orders {
     @CreationTimestamp
     Date orderedDate; //A Date to store the Order Date
     String cardUsed; //A String to store the Card used for Order
+    @Enumerated(EnumType.STRING)
+    OrderStatus orderStatus; //An Enum Data type to store the Order Status
 
     @ManyToOne //Used to define Child to Parent relationship
     @JoinColumn //Joins the Primary key of the Order with Customer

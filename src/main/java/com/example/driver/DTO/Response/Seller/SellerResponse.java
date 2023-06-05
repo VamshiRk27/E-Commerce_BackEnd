@@ -13,4 +13,5 @@ public class SellerResponse {
     String name;
     String emailId;
     Integer age;
+    String address;
 }

@@ -17,7 +17,7 @@ public class Item {
 
     @Id //Defines the attribute as Primary Key of the Item Object
     @GeneratedValue(strategy= GenerationType.IDENTITY) //Provides specification for generation strategy of the Primary Key value
-    Integer id; //An Integer to store the Item ID
+    Integer itemId; //An Integer to store the Item ID
 
     String name; //A String to store the Item Name
     Integer requiredQuantity; //An Integer to store the Required Item Quantity
@@ -27,7 +27,7 @@ public class Item {
     @JoinColumn //Joins the Primary key of the Item with Cart
     Cart cart; //A Cart object to map the Item with Cart
 
-    @ManyToOne //Used to define Child to Parent relationship
+    @OneToOne //Used to define Child to Parent relationship
     @JoinColumn //Joins the Primary key of the Item with Order
     Orders orders; //An Orders object to map the Item with Order
 

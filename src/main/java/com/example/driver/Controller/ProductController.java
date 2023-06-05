@@ -105,9 +105,69 @@ public class ProductController {
     }
 
     // 7.Get all out_of_stock products
+    @GetMapping("/get-all-available-products")
+    public ResponseEntity getAllOutOfStockProducts(){
+        //Get all Out_Of_Stock Products and return them as List of Product Response
+        try{
+            List<ProductResponse> responseList=productService.getAllOutOfStockProducts();
+            return new ResponseEntity<>(responseList,HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_GATEWAY);
+        }
+    }
 
     // 8.Get all available products
-    // 9.Get all the products having quantity less than 10
+    @GetMapping("/get-all-available-products")
+    public ResponseEntity getAllAvailableProducts(){
+        //Get all the Available Products and return them as List of Product Response
+        try{
+            List<ProductResponse> responseList=productService.getAllAvailableProducts();
+            return new ResponseEntity<>(responseList,HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_GATEWAY);
+        }
+    }
+
+    // 9.Get all the products with low inventory
+    @GetMapping("/get-all-low-inventory-products")
+    public ResponseEntity getAllLowInventoryProducts(){
+        //Get all Low Inventory Products and return them as List of Product Response
+        try{
+            List<ProductResponse> responseList=productService.getAllLowInventoryProducts();
+            return new ResponseEntity<>(responseList,HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_GATEWAY);
+        }
+    }
+
     // 10.Get the cheapest product in a particular category
+    @GetMapping("/get-cheapest-product-in-category")
+    public ResponseEntity getCheapestProductInCategory(@RequestParam("category") String category){
+        //Get all Low Inventory Products and return them as List of Product Response
+        try{
+            ProductResponse response=productService.getCheapestProductInCategory(category);
+            return new ResponseEntity<>(response,HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_GATEWAY);
+        }
+    }
+
     // 11.Return the costliest product in a particular category
+    @GetMapping("/get-costliest-product-in-category")
+    public ResponseEntity getCostliestProductInCategory(@RequestParam("category") String category){
+        //Get all Low Inventory Products and return them as List of Product Response
+        try{
+            ProductResponse response=productService.getCostliestProductInCategory(category);
+            return new ResponseEntity<>(response,HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_GATEWAY);
+        }
+    }
+
+    // 12.Get all low inventory products of a category
 }

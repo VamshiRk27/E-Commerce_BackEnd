@@ -14,4 +14,5 @@ public class SellerRequest {
     String emailId;
     Integer age;
     String mobileNumber;
+    String address;
 }

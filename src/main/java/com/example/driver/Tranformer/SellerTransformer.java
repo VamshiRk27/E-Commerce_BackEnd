@@ -14,6 +14,7 @@ public class SellerTransformer {
                 .emailId(addSellerRequest.getEmailId())
                 .age(addSellerRequest.getAge())
                 .mobileNumber(addSellerRequest.getMobileNumber())
+                .address(addSellerRequest.getAddress())
                 .build();
     }
 
@@ -32,6 +33,7 @@ public class SellerTransformer {
                 .name(seller.getName())
                 .emailId(seller.getEmailId())
                 .age(seller.getAge())
+                .address(seller.getAddress())
                 .build();
     }
 }

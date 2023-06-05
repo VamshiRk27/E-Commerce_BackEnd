@@ -21,7 +21,7 @@ public class Product {
 
     @Id //Defines the attribute as Primary Key of the Product Object
     @GeneratedValue(strategy= GenerationType.IDENTITY) //Provides specification for generation strategy of the Primary Key value
-    Integer id; //An integer to store Product ID
+    Integer productId; //An integer to store Product ID
 
     String name; //A String to store Product Name
     Integer price; // An Integer to store Product Price

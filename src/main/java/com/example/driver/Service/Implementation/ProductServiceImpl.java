@@ -6,12 +6,15 @@ import com.example.driver.DTO.Response.Product.ProductOperationResponse;
 import com.example.driver.DTO.Response.Product.ProductResponse;
 import com.example.driver.Entity.Product;
 import com.example.driver.Entity.Seller;
+import com.example.driver.Enum.ProductStatus;
 import com.example.driver.Exception.ProductException;
 import com.example.driver.Exception.SellerException;
 import com.example.driver.Repository.ProductRepository;
 import com.example.driver.Repository.SellerRepository;
 import com.example.driver.Service.Interface.ProductService;
 import com.example.driver.Tranformer.ProductTransformer;
+import com.example.driver.Validations.ProductValidation;
+import com.example.driver.Validations.SellerValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,16 +33,16 @@ public class ProductServiceImpl implements ProductService {
     public AddProductResponse addProduct(AddProductRequest addProductRequest) throws SellerException {
         //Retrieve the Seller using unique identifier seller EmailId
         Seller seller=sellerRepository.findByEmailId(addProductRequest.getSellerEmail());
-        if(seller==null){
-            //If the seller doesn't exist throw an exception
-            throw new SellerException("Seller with email "+"'"+addProductRequest.getSellerEmail()+"'"+" doesn't exist");
-        }
-
+        //If Seller doesn't exist will throw an Exception
+        SellerValidation.noSellerEmailValidation(seller,addProductRequest.getSellerEmail());
         Product product=ProductTransformer.addProductRequestToProduct(addProductRequest); //Prepare the product from Request DTO
+
+        // 2 way mapping for Product <---> Seller
         product.setSeller(seller); //Set the Seller for the product
         List<Product> sellerProducts=seller.getProducts(); //Get the list of products sold by Seller
         sellerProducts.add(product); //Add the product in the Seller Products list
-        sellerRepository.save(seller); //Save the seller in the Database after modifications
+
+        sellerRepository.save(seller); //Save the parent model Seller in the Database after modifications
         //Prepare a Product Response from the Transformer function
         AddProductResponse response=ProductTransformer.addProductResponseFromProduct(seller.getName(),product);
         return response; //Return the Response
@@ -65,10 +68,8 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductResponse> getProductsBySeller(String sellerEmail) throws SellerException {
         Seller seller=sellerRepository.findByEmailId(sellerEmail); //Search for the seller using emailId as reference
-        if(seller==null){
-            // If the Seller with given email doesn't exist then throw an Exception
-            throw new SellerException("Seller with given Email doesn't exist in the Database");
-        }
+        // If Seller doesn't exist throws an Exception
+        SellerValidation.noSellerEmailValidation(seller,sellerEmail);
 
         List<Product> sellerProductsList=seller.getProducts(); //Get all products from the Seller
         List<ProductResponse> responseList=new ArrayList<>(); //Initialising a new Response List
@@ -87,28 +88,26 @@ public class ProductServiceImpl implements ProductService {
     public ProductOperationResponse deleteASellerProduct(String sellerEmail, Integer productId) throws SellerException, ProductException {
         //Search for the seller using emailId as reference
         Seller seller=sellerRepository.findByEmailId(sellerEmail);
-        if(seller==null){
-            // If the Seller with given email doesn't exist then throw an Exception
-            throw new SellerException("Seller with given Email doesn't exist in the Database");
-        }
+        // If the Seller with given email doesn't exist then throw an Exception
+        SellerValidation.noSellerEmailValidation(seller,sellerEmail);
         //Search for the product using the given ProductId from the Database
         Product product=productRepository.findById(productId).get();
-        if(product==null){
-            //If the Product is null then throw an Exception
-            throw new ProductException("Product with given id "+productId+" doesn't exist");
-        }
+        //If the Product doesn't exist then throw an Exception
+        ProductValidation.noProductWithIdValidation(product,productId);
         ProductOperationResponse response = new ProductOperationResponse(); //Initialising an Operation Response
 
-        if(product.getSeller()==seller){ //If the seller retrieved and product seller are same
+        //If the seller retrieved and product seller are same
+        if(product.getSeller()==seller){
             List<Product> sellerProductsList=seller.getProducts(); //Get the products sold by Seller
             sellerProductsList.remove(product); //Remove the product from the list
             productRepository.delete(product); //Delete the product from Database
             sellerRepository.save(seller); //Update the seller by saving in the Database
             response.setMessage("The Product has been removed Successfully"); //Set the Response Message
         }
-        else{ //If the seller retrieved and product seller are different
+        //If the seller retrieved and product seller are different
+        else{
             //Set the Response message
-            response.setMessage("The Product with given id is not sold by the given Seller");
+            response.setMessage("The Product with id "+"'"+productId+"'"+" is not sold by Seller "+seller.getName());
         }
         return response; //Return the response
     }
@@ -143,6 +142,66 @@ public class ProductServiceImpl implements ProductService {
         return responseList; //Return the Response list
     }
 
+    // 7.Get all out_of_stock products
+    @Override
+    public List<ProductResponse> getAllOutOfStockProducts() {
+        //Get all the Products List which are available in the inventory
+        List<Product> availableProducts=productRepository.productsByStatus(String.valueOf(ProductStatus.OUT_OF_STOCK));
+        List<ProductResponse> responseList=new ArrayList<>(); //Initializing a new ArrayList
+        //Prepare Product Response for all the available products
+        for(Product product:availableProducts){
+            //Preparing response for each Product
+            ProductResponse response=ProductTransformer.productResponseFromProduct(product);
+            responseList.add(response); //Add response to the Response list
+        }
+        return responseList; //Return the Response list
+    }
+
     // 8.Get all Available Products
+    @Override
+    public List<ProductResponse> getAllAvailableProducts() {
+        //Get all the Products List which are available in the inventory
+        List<Product> availableProducts=productRepository.productsByStatus(String.valueOf(ProductStatus.AVAILABLE));
+        List<ProductResponse> responseList=new ArrayList<>(); //Initializing a new ArrayList
+        //Prepare Product Response for all the available products
+        for(Product product:availableProducts){
+            //Preparing response for each Product
+            ProductResponse response=ProductTransformer.productResponseFromProduct(product);
+            responseList.add(response); //Add response to the Response list
+        }
+        return responseList; //Return the Response list
+    }
+
+    // 9.Get all the products with low inventory
+    @Override
+    public List<ProductResponse> getAllLowInventoryProducts() {
+        //Get all the Products List which are available in the inventory
+        List<Product> availableProducts=productRepository.productsByInventoryStatus(50);
+        List<ProductResponse> responseList=new ArrayList<>(); //Initializing a new ArrayList
+        //Prepare Product Response for all the available products
+        for(Product product:availableProducts){
+            //Preparing response for each Product
+            ProductResponse response=ProductTransformer.productResponseFromProduct(product);
+            responseList.add(response); //Add response to the Response list
+        }
+        return responseList; //Return the Response list
+    }
+
+    // 10.Get the cheapest product in a particular category
+    @Override
+    public ProductResponse getCheapestProductInCategory(String category) {
+        Product product=productRepository.cheapestProductInCategory(category);
+        ProductResponse response=ProductTransformer.productResponseFromProduct(product);
+        return response;
+    }
+
+    // 11.Return the costliest product in a particular category
+    @Override
+    public ProductResponse getCostliestProductInCategory(String category) {
+        Product product=productRepository.costliestProductInCategory(category);
+        ProductResponse response=ProductTransformer.productResponseFromProduct(product);
+        return response;
+    }
+
 
 }

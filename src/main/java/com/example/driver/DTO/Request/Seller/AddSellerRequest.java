@@ -14,4 +14,5 @@ public class AddSellerRequest {
     String emailId;
     Integer age;
     String mobileNumber;
+    String address;
 }

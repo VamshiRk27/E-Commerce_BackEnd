@@ -29,6 +29,7 @@ public class Seller {
 
     Integer age; //An Integer to store the Seller Age
     String mobileNumber; //A String to store the Seller Mobile Number
+    String address; //A String to store the Seller Address
 
     @OneToMany(mappedBy="seller",cascade=CascadeType.ALL) //Used to define Parent to Child Relationship
     List<Product> products=new ArrayList<>(); //A List to store the Products sold by the Seller

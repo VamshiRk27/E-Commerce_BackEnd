@@ -28,4 +28,10 @@ public class OrderController {
             return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
+
+    // 2.Get all the orders for a customer
+    // 3.Get 5 recent Orders
+    // 4.Get 5 recent Orders of a Customer
+    // 5.Delete Orders
+    // 6.Email Notification for an Order
 }

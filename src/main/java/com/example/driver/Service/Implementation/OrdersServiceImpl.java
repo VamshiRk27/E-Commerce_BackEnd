@@ -32,7 +32,7 @@ public class OrdersServiceImpl implements OrdersService {
     @Override
     public Orders placeOrderFromCart(Customer customer,Card card,Item item) throws ProductException {
         //Preparing a new OrderRequest using customerId,cardNumber & itemId
-        OrderRequest orderRequest=new OrderRequest(customer.getCustomerId(), card.getCardNumber(), item.getId());
+        OrderRequest orderRequest=new OrderRequest(customer.getCustomerId(), card.getCardNumber(), item.getItemId());
         Orders order= OrderTransformer.placeOrderFromCart(orderRequest); //Prepare Order from OrderRequest
         //Set the remaining parameters for the Order placed
         order.setTotalOrderValue(item.getProduct().getPrice()*item.getRequiredQuantity()); //Setting the Total Order Value
@@ -79,7 +79,7 @@ public class OrdersServiceImpl implements OrdersService {
         item.setProduct(product); //Mapping the Product for Item object
         product.getItemList().add(item);
         itemRepository.save(item);
-        OrderRequest orderRequest=new OrderRequest(customer.getCustomerId(),cardNumber,item.getId());
+        OrderRequest orderRequest=new OrderRequest(customer.getCustomerId(),cardNumber,item.getItemId());
         Orders order=OrderTransformer.placeDirectOrder(orderRequest);
         order.setTotalOrderValue(item.getProduct().getPrice()*item.getRequiredQuantity()); //Setting the Total Order Value
         order.setCustomer(customer); //Set the customer for the Order

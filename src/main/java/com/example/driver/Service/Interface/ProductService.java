@@ -18,4 +18,9 @@ public interface ProductService {
     ProductOperationResponse deleteASellerProduct(String sellerEmail,Integer productId) throws SellerException, ProductException;
     List<ProductResponse> getTopFiveCheapestProducts();
     List<ProductResponse> getTopFiveCostliestProducts();
+    List<ProductResponse> getAllAvailableProducts();
+    List<ProductResponse> getAllOutOfStockProducts();
+    List<ProductResponse> getAllLowInventoryProducts();
+    ProductResponse getCheapestProductInCategory(String category);
+    ProductResponse getCostliestProductInCategory(String category);
 }
