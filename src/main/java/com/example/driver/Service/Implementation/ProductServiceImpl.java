@@ -6,6 +6,7 @@ import com.example.driver.DTO.Response.Product.ProductOperationResponse;
 import com.example.driver.DTO.Response.Product.ProductResponse;
 import com.example.driver.Entity.Product;
 import com.example.driver.Entity.Seller;
+import com.example.driver.Enum.ProductCategory;
 import com.example.driver.Enum.ProductStatus;
 import com.example.driver.Exception.ProductException;
 import com.example.driver.Exception.SellerException;
@@ -50,7 +51,7 @@ public class ProductServiceImpl implements ProductService {
 
     // 2.Get all Products of a Category
     @Override
-    public List<ProductResponse> getAllProductsByCategory(String category) {
+    public List<ProductResponse> getAllProductsByCategory(ProductCategory category) {
         //Retrieve all the Products of a Category from the Database
         List<Product> productsListOfCategory=productRepository.findAllProductsByCategory(category);
         List<ProductResponse> responseList=new ArrayList<>(); //Initialising a new Response List for Product Response
@@ -146,7 +147,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductResponse> getAllOutOfStockProducts() {
         //Get all the Products List which are available in the inventory
-        List<Product> availableProducts=productRepository.productsByStatus(String.valueOf(ProductStatus.OUT_OF_STOCK));
+        List<Product> availableProducts=productRepository.productsByStatus(ProductStatus.OUT_OF_STOCK);
         List<ProductResponse> responseList=new ArrayList<>(); //Initializing a new ArrayList
         //Prepare Product Response for all the available products
         for(Product product:availableProducts){
@@ -161,7 +162,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductResponse> getAllAvailableProducts() {
         //Get all the Products List which are available in the inventory
-        List<Product> availableProducts=productRepository.productsByStatus(String.valueOf(ProductStatus.AVAILABLE));
+        List<Product> availableProducts=productRepository.productsByStatus(ProductStatus.AVAILABLE);
         List<ProductResponse> responseList=new ArrayList<>(); //Initializing a new ArrayList
         //Prepare Product Response for all the available products
         for(Product product:availableProducts){
@@ -189,17 +190,17 @@ public class ProductServiceImpl implements ProductService {
 
     // 10.Get the cheapest product in a particular category
     @Override
-    public ProductResponse getCheapestProductInCategory(String category) {
-        Product product=productRepository.cheapestProductInCategory(category);
-        ProductResponse response=ProductTransformer.productResponseFromProduct(product);
+    public ProductResponse getCheapestProductInCategory(ProductCategory category) {
+        List<Product> products=productRepository.cheapestProductInCategory(category);
+        ProductResponse response=ProductTransformer.productResponseFromProduct(products.get(0));
         return response;
     }
 
     // 11.Return the costliest product in a particular category
     @Override
-    public ProductResponse getCostliestProductInCategory(String category) {
-        Product product=productRepository.costliestProductInCategory(category);
-        ProductResponse response=ProductTransformer.productResponseFromProduct(product);
+    public ProductResponse getCostliestProductInCategory(ProductCategory category) {
+        List<Product> products=productRepository.costliestProductInCategory(category);
+        ProductResponse response=ProductTransformer.productResponseFromProduct(products.get(0));
         return response;
     }
 

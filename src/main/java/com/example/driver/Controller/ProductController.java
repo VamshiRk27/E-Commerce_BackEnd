@@ -4,6 +4,7 @@ import com.example.driver.DTO.Request.Product.AddProductRequest;
 import com.example.driver.DTO.Response.Product.AddProductResponse;
 import com.example.driver.DTO.Response.Product.ProductOperationResponse;
 import com.example.driver.DTO.Response.Product.ProductResponse;
+import com.example.driver.Enum.ProductCategory;
 import com.example.driver.Service.Interface.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,7 +36,7 @@ public class ProductController {
 
     // 2.Get all Products of a Category
     @GetMapping("/get-all-products-of-category")
-    public ResponseEntity getAllProductsByCategory(@RequestParam("category") String category){
+    public ResponseEntity getAllProductsByCategory(@RequestParam("category") ProductCategory category){
         //Get all the products of a given category and return the List of products in the form of Product Response
         try{
             List<ProductResponse> responseList=productService.getAllProductsByCategory(category);
@@ -105,7 +106,7 @@ public class ProductController {
     }
 
     // 7.Get all out_of_stock products
-    @GetMapping("/get-all-available-products")
+    @GetMapping("/get-all-out-of-stock-products")
     public ResponseEntity getAllOutOfStockProducts(){
         //Get all Out_Of_Stock Products and return them as List of Product Response
         try{
@@ -145,7 +146,7 @@ public class ProductController {
 
     // 10.Get the cheapest product in a particular category
     @GetMapping("/get-cheapest-product-in-category")
-    public ResponseEntity getCheapestProductInCategory(@RequestParam("category") String category){
+    public ResponseEntity getCheapestProductInCategory(@RequestParam("category") ProductCategory category){
         //Get all Low Inventory Products and return them as List of Product Response
         try{
             ProductResponse response=productService.getCheapestProductInCategory(category);
@@ -158,7 +159,7 @@ public class ProductController {
 
     // 11.Return the costliest product in a particular category
     @GetMapping("/get-costliest-product-in-category")
-    public ResponseEntity getCostliestProductInCategory(@RequestParam("category") String category){
+    public ResponseEntity getCostliestProductInCategory(@RequestParam("category") ProductCategory category){
         //Get all Low Inventory Products and return them as List of Product Response
         try{
             ProductResponse response=productService.getCostliestProductInCategory(category);

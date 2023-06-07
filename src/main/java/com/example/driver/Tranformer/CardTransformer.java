@@ -2,7 +2,9 @@ package com.example.driver.Tranformer;
 
 import com.example.driver.DTO.Request.Card.AddCardRequest;
 import com.example.driver.DTO.Response.Card.AddCardResponse;
+import com.example.driver.DTO.Response.Card.CustomerCardResponse;
 import com.example.driver.Entity.Card;
+import com.example.driver.Entity.Customer;
 import com.example.driver.Helper.CardHelper;
 import lombok.experimental.UtilityClass;
 
@@ -23,5 +25,11 @@ public class CardTransformer {
                 .cardNumber(card.getCardNumber())
                 .customerName(customerName)
                 .message(outMessage).build();
+    }
+    public static CustomerCardResponse customerCardResponseFromCard(Card card){
+        return CustomerCardResponse.builder()
+                .cardNumber(card.getCardNumber())
+                .cardType(card.getCardType())
+                .expiryDate(card.getExpiryDate()).build();
     }
 }

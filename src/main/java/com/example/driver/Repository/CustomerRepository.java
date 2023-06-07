@@ -1,6 +1,7 @@
 package com.example.driver.Repository;
 
 import com.example.driver.Entity.Customer;
+import com.example.driver.Enum.CardType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -13,4 +14,7 @@ public interface CustomerRepository extends JpaRepository<Customer,Integer> {
 
     @Query(value="select * from customer c where c.age>:age",nativeQuery=true)
     List<Customer> customersGreaterThanAge(Integer age);
+
+    @Query(value="select * from customer c where c.card_type=:cardType",nativeQuery=true)
+    List<Customer> customersByCardType(CardType cardType);
 }
