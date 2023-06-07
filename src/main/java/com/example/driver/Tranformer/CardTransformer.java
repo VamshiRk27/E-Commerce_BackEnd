@@ -2,6 +2,7 @@ package com.example.driver.Tranformer;
 
 import com.example.driver.DTO.Request.Card.AddCardRequest;
 import com.example.driver.DTO.Response.Card.AddCardResponse;
+import com.example.driver.DTO.Response.Card.CardResponse;
 import com.example.driver.DTO.Response.Card.CustomerCardResponse;
 import com.example.driver.Entity.Card;
 import com.example.driver.Entity.Customer;
@@ -30,6 +31,12 @@ public class CardTransformer {
         return CustomerCardResponse.builder()
                 .cardNumber(card.getCardNumber())
                 .cardType(card.getCardType())
+                .expiryDate(card.getExpiryDate()).build();
+    }
+    public static CardResponse cardResponseFromCard(Card card){
+        return CardResponse.builder()
+                .cardNumber(card.getCardNumber())
+                .customerName(card.getCustomer().getName())
                 .expiryDate(card.getExpiryDate()).build();
     }
 }
