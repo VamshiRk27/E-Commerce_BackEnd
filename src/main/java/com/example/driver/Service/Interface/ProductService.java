@@ -24,4 +24,5 @@ public interface ProductService {
     List<ProductResponse> getAllLowInventoryProducts();
     ProductResponse getCheapestProductInCategory(ProductCategory category);
     ProductResponse getCostliestProductInCategory(ProductCategory category);
+    List<ProductResponse> getAllLowInventoryProductsOfCategory(ProductCategory category);
 }

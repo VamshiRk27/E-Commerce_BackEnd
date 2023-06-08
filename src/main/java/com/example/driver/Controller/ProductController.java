@@ -171,4 +171,15 @@ public class ProductController {
     }
 
     // 12.Get all low inventory products of a category
+    @GetMapping("/get-all-low-inventory-products-of-category")
+    public ResponseEntity getAllLowInventoryProductsOfCategory(@RequestParam("productCategory") ProductCategory category){
+        //Get all Low Inventory Products of given Category and return them as List of Product Response
+        try{
+            List<ProductResponse> responseList=productService.getAllLowInventoryProductsOfCategory(category);
+            return new ResponseEntity<>(responseList,HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_GATEWAY);
+        }
+    }
 }

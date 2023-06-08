@@ -147,10 +147,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductResponse> getAllOutOfStockProducts() {
         //Get all the Products List which are available in the inventory
-        List<Product> availableProducts=productRepository.productsByStatus(ProductStatus.OUT_OF_STOCK);
+        List<Product> outOfStockProducts=productRepository.productsByStatus(ProductStatus.OUT_OF_STOCK);
         List<ProductResponse> responseList=new ArrayList<>(); //Initializing a new ArrayList
         //Prepare Product Response for all the available products
-        for(Product product:availableProducts){
+        for(Product product:outOfStockProducts){
             //Preparing response for each Product
             ProductResponse response=ProductTransformer.productResponseFromProduct(product);
             responseList.add(response); //Add response to the Response list
@@ -177,10 +177,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductResponse> getAllLowInventoryProducts() {
         //Get all the Products List which are available in the inventory
-        List<Product> availableProducts=productRepository.productsByInventoryStatus(50);
+        List<Product> lowInventoryProducts=productRepository.productsByInventoryStatus(50);
         List<ProductResponse> responseList=new ArrayList<>(); //Initializing a new ArrayList
         //Prepare Product Response for all the available products
-        for(Product product:availableProducts){
+        for(Product product:lowInventoryProducts){
             //Preparing response for each Product
             ProductResponse response=ProductTransformer.productResponseFromProduct(product);
             responseList.add(response); //Add response to the Response list
@@ -202,6 +202,21 @@ public class ProductServiceImpl implements ProductService {
         List<Product> products=productRepository.costliestProductInCategory(category);
         ProductResponse response=ProductTransformer.productResponseFromProduct(products.get(0));
         return response;
+    }
+
+    // 12.Get all low inventory products of a category
+    @Override
+    public List<ProductResponse> getAllLowInventoryProductsOfCategory(ProductCategory category) {
+        //Get all the Products List which are available in the inventory
+        List<Product> lowProductsInCategory=productRepository.productsByInventoryStatusAndCategory(50,category);
+        List<ProductResponse> responseList=new ArrayList<>(); //Initializing a new ArrayList
+        //Prepare Product Response for all the available products
+        for(Product product:lowProductsInCategory){
+            //Preparing response for each Product
+            ProductResponse response=ProductTransformer.productResponseFromProduct(product);
+            responseList.add(response); //Add response to the Response list
+        }
+        return responseList; //Return the Response list
     }
 
 

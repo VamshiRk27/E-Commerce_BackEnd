@@ -31,4 +31,7 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
 
     @Query(value="select * from product p where p.product_category=:category order by p.price desc",nativeQuery=true)
     List<Product> costliestProductInCategory(ProductCategory category);
+
+    @Query(value ="select * from product p where p.quantity<=:stock and p.product_category=:category",nativeQuery=true)
+    List<Product> productsByInventoryStatusAndCategory(Integer stock,ProductCategory category);
 }

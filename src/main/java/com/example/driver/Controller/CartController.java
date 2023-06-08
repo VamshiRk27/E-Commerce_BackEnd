@@ -40,6 +40,7 @@ public class CartController {
         }
     }
 
+    // 2.Check out Cart
     @PostMapping("/checkout-cart")
     public ResponseEntity checkOutCart(@RequestBody CheckOutCartRequest checkOutCartRequest){
         //Order all Items present in the cart of Customer
