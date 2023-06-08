@@ -14,4 +14,9 @@ public class CustomerValidation {
             throw new CustomerException("Sorry! Customer with given id "+"'"+customerId+"'"+" doesn't exist");
         }
     }
+    public static void customerEmailValidation(Customer customer,String customerEmail) throws CustomerException {
+        if(customer!=null){
+            throw new CustomerException("Customer with given email "+"'"+customerEmail+"'"+" already exist");
+        }
+    }
 }

@@ -221,4 +221,41 @@ public class CardServiceImpl implements CardService {
         return (CardType)minType; //Return the Card Type
     }
 
+    // 10.get all given Card Type customers whose expiry is less than 'x' Months
+    @Override
+    public List<CustomerResponse> getAllCustomersUsingCardHavingExpiryLessThanMonths(Integer months, CardType cardType) {
+        // Get all Cards of the given cardType from Database
+        List<Card> cards=cardRepository.cardsByCardType(cardType);
+        List<CustomerResponse> responseList=new ArrayList<>(); //Initialise a new ResponseList
+        Date today=new Date(System.currentTimeMillis()); //Current Date from System
+        Date expiryDate=Date.valueOf(today.toLocalDate().plusMonths(months)); //Adding given months to find Expiry Date
+        for(Card card:cards){
+            //For each card if Expiry Date is less than given period then add it to ResponseList
+            if(card.getExpiryDate().compareTo(expiryDate)<=0){
+                //Preparing Customer Response for that card user
+                CustomerResponse response=CustomerTransformer.customerResponseFromCustomer(card.getCustomer());
+                responseList.add(response); //Adding response to ResponseList
+            }
+        }
+        return responseList; //return ResponseList
+    }
+
+    // 11.get all given Card Type customers whose expiry is less than 'x' Days
+    @Override
+    public List<CustomerResponse> getAllCustomersUsingCardHavingExpiryLessThanDays(Integer days, CardType cardType) {
+        // Get all Cards of the given cardType from Database
+        List<Card> cards=cardRepository.cardsByCardType(cardType);
+        List<CustomerResponse> responseList=new ArrayList<>(); //Initialise a new ResponseList
+        Date today=new Date(System.currentTimeMillis()); //Current Date from System
+        Date expiryDate=Date.valueOf(today.toLocalDate().plusDays(days)); //Adding given Days to find Expiry Date
+        for(Card card:cards){
+            //For each card if Expiry Date is less than given period then add it to ResponseList
+            if(card.getExpiryDate().compareTo(expiryDate)<=0){
+                //Preparing Customer Response for that card user
+                CustomerResponse response=CustomerTransformer.customerResponseFromCustomer(card.getCustomer());
+                responseList.add(response); //Adding response to ResponseList
+            }
+        }
+        return responseList; //return ResponseList
+    }
 }

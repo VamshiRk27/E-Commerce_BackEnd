@@ -141,4 +141,32 @@ public class CardController {
             return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
+
+    // 10.get all given Card Type customers whose expiry is less than 'x' Months
+    @GetMapping("/get-all-customers-using-card_type-having-expiry-less-than/{months}")
+    public ResponseEntity getAllCustomersUsingCardHavingExpiryLessThanMonths(
+            @PathVariable("months") Integer months,
+            @RequestParam("cardType")CardType cardType) {
+        // Get all the Customers whose given CardType has validity less than 'x' months
+        try {
+            List<CustomerResponse> responseList = cardService.getAllCustomersUsingCardHavingExpiryLessThanMonths(months, cardType);
+            return new ResponseEntity<>(responseList, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    // 11.get all given Card Type customers whose expiry is less than 'x' Days
+    @GetMapping("/get-all-customers-using-card_type-having-expiry-less-than/{days}")
+    public ResponseEntity getAllCustomersUsingCardHavingExpiryLessThanDays(
+            @PathVariable("days") Integer days,
+            @RequestParam("cardType")CardType cardType) {
+        // Get all the Customers whose given CardType has validity less than 'x' Days
+        try {
+            List<CustomerResponse> responseList = cardService.getAllCustomersUsingCardHavingExpiryLessThanDays(days, cardType);
+            return new ResponseEntity<>(responseList, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 }

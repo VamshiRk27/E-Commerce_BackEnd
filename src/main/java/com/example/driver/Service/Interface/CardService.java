@@ -24,4 +24,6 @@ public interface CardService {
     List<CardResponse> getAllCardTypeCardsBeforeExpiry(CardType cardType,Date date);
     CardType getCardTypeHavingMaximumCustomers();
     CardType getCardTypeHavingMinimumCustomers();
+    List<CustomerResponse> getAllCustomersUsingCardHavingExpiryLessThanMonths(Integer months, CardType cardType);
+    List<CustomerResponse> getAllCustomersUsingCardHavingExpiryLessThanDays(Integer days, CardType cardType);
 }
