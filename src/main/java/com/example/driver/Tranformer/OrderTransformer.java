@@ -1,6 +1,7 @@
 package com.example.driver.Tranformer;
 
 import com.example.driver.DTO.Request.Order.OrderRequest;
+import com.example.driver.DTO.Response.Order.OrderInfoResponse;
 import com.example.driver.DTO.Response.Order.OrderResponse;
 import com.example.driver.Entity.Orders;
 import com.example.driver.Helper.OrderHelper;
@@ -32,5 +33,12 @@ public class OrderTransformer{
                 .cardUsed(order.getCardUsed())
                 .item(ItemTransformer.itemResponseFromItem(order.getItem()))
                 .build();
+    }
+    public static OrderInfoResponse orderInfoResponseFromOrder(Orders order) {
+        return OrderInfoResponse.builder()
+                .OrderNo(order.getOrderNo())
+                .orderedDate(order.getOrderedDate())
+                .orderStatus(order.getOrderStatus())
+                .item(ItemTransformer.itemResponseFromItem(order.getItem())).build();
     }
 }

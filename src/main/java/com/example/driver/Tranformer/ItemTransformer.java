@@ -13,10 +13,10 @@ public class ItemTransformer {
     }
     public static ItemResponse itemResponseFromItem(Item item){
         return ItemResponse.builder()
+                .productName(item.getProduct().getName())
+                .quantity(item.getRequiredQuantity())
                 .eachItemPrice(item.getProduct().getPrice())
                 .totalPrice(item.getRequiredQuantity()*item.getProduct().getPrice())
-                .quantity(item.getRequiredQuantity())
-                .productName(item.getProduct().getName())
                 .build();
     }
 }

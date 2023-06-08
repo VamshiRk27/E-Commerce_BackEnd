@@ -10,4 +10,9 @@ public class ProductValidation {
             throw new ProductException("Product with given id "+productId+" doesn't exist");
         }
     }
+    public static void productRequiredQuantityValidation(Integer availableQuantity,Integer requiredQuantity) throws ProductException {
+        if(availableQuantity<requiredQuantity){
+            throw new ProductException("Required quantity not available");
+        }
+    }
 }
